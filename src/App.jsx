@@ -1,18 +1,17 @@
-import { Banner } from './components/Banner';
-import { Counter } from './components/Counter';
+import { Timer } from './components/Timer';
+import { Users } from './components/Users';
 import { Header, Layout } from './components/Layout';
-import { UsersList } from './components/Users';
+import {Rerender} from './components/Rerender'
 
 export const App = () => {
   return (
     <Layout>
       <Header title="Hello world!" />
-
-      {/* <Counter  /> */}
-      {/* <Banner /> */}
-      <UsersList />
+      {/* <Timer /> */}
+      <Users />
+      {/* <Rerender /> */}
     </Layout>
-  )
-}
+  );
+};
 
-// new Counter()
+// new Users() => constuctor()

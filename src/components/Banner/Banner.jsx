@@ -39,9 +39,11 @@ export class Banner extends Component {
           </BannerItem>
         </div>
 
-        {isModalOpen && (<Modal onModalClose={this.handleModalToggle}>
-          <BannerModal />
-        </Modal>)}
+        {isModalOpen && (
+          <Modal onModalClose={this.handleModalToggle} >
+              <BannerModal />
+          </Modal>
+        )}
       </>
     );
   }
