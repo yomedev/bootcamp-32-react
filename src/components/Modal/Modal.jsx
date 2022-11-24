@@ -1,5 +1,5 @@
 import { PropTypes } from 'prop-types';
-import { Component } from 'react';
+import { Component, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 /*
 <Modal><Content /></Modal>
@@ -13,51 +13,96 @@ props = {
 
 const rootModal = document.getElementById('modal-root')
 
-export class Modal extends Component {
+export const Modal = ({ children, onModalClose }) => {
 
-  handleBackdropClose = (event) => {
-    if (event.currentTarget === event.target) {
-      this.props.onModalClose()
-    }
-  }
-
-  componentDidMount() {
-    window.addEventListener('keydown', this.handleEscapeKey)
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleEscapeKey)
-  }
-
-  handleEscapeKey = event => {
+  const handleKeyDown = event => {
     if (event.key === 'Escape') {
       console.log(event.key);
-      this.props.onModalClose()
+      onModalClose()
     }
   }
 
-  render() {
-    const { children, onModalClose } = this.props
-    return createPortal((
-      <>
-        <div className="modal-backdrop fade show" />
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown)
 
-        <div className="modal fade show" style={{ display: 'block' }} onClick={this.handleBackdropClose}>
-          <div className="modal-dialog modal-dialog-centered">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Modal title</h5>
-                <button type="button" className="btn-close" aria-label="Close" onClick={onModalClose} />
-              </div>
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [])
 
-              <div className="modal-body">{children}</div>
+  const handleBackdropClose = event => {
+    if (event.currentTarget === event.target) {
+      onModalClose()
+    }
+  }
+
+  return createPortal((
+    <>
+      <div className="modal-backdrop fade show" />
+
+      <div className="modal fade show" style={{ display: 'block' }} onClick={handleBackdropClose}>
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">Modal title</h5>
+              <button type="button" className="btn-close" aria-label="Close" onClick={onModalClose} />
             </div>
+
+            <div className="modal-body">{children}</div>
           </div>
         </div>
-      </>
-    ), rootModal)
-  }
-};
+      </div>
+    </>
+  ), rootModal)
+}
+
+
+
+// export class Modal extends Component {
+
+//   handleBackdropClose = (event) => {
+//     if (event.currentTarget === event.target) {
+//       this.props.onModalClose()
+//     }
+//   }
+
+//   componentDidMount() {
+//     window.addEventListener('keydown', this.handleEscapeKey)
+//   }
+
+//   componentWillUnmount() {
+//     window.removeEventListener('keydown', this.handleEscapeKey)
+//   }
+
+//   handleEscapeKey = event => {
+//     if (event.key === 'Escape') {
+//       console.log(event.key);
+//       this.props.onModalClose()
+//     }
+//   }
+
+//   render() {
+//     const { children, onModalClose } = this.props
+//     return createPortal((
+//       <>
+//         <div className="modal-backdrop fade show" />
+
+//         <div className="modal fade show" style={{ display: 'block' }} onClick={this.handleBackdropClose}>
+//           <div className="modal-dialog modal-dialog-centered">
+//             <div className="modal-content">
+//               <div className="modal-header">
+//                 <h5 className="modal-title">Modal title</h5>
+//                 <button type="button" className="btn-close" aria-label="Close" onClick={onModalClose} />
+//               </div>
+
+//               <div className="modal-body">{children}</div>
+//             </div>
+//           </div>
+//         </div>
+//       </>
+//     ), rootModal)
+//   }
+// };
 
 Modal.propType = {
   children: PropTypes.node.isRequired,
