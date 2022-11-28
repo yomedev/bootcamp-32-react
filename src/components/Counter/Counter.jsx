@@ -34,10 +34,8 @@ export const Counter = () => {
   const ref2 = useRef(10)
   const ref = useRef(null)
 
-  console.log(ref);
   
   useEffect(() => {
-    console.log(ref.current);
     ref2.current += 10
   }, [])
 

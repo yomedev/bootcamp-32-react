@@ -1,20 +1,16 @@
+import { useContext } from "react";
+import { Login } from "./Login";
+import { Nav } from "./Nav/Nav";
+import { AuthContext } from '../../../context/auth.context'
+
 export const Sidebar = () => {
+  const { isAuth } = useContext(AuthContext)
   return (
-    <aside className="nav nav-pills p-5 bg-light w-100" style={{ maxWidth: '300px', height: 'auto' }}>
-      <div className="d-flex flex-column" style={{ position: 'sticky', top: 30, left: 0, height: 'max-content' }}>
-        <a href="/" style={{ textAlign: 'left' }} className="btn btn-light">
-          Home
-        </a>
-        <a href="/" style={{ textAlign: 'left' }} className="btn btn-link">
-          Profile
-        </a>
-        <a href="/" style={{ textAlign: 'left' }} className="btn btn-link">
-          Messages
-        </a>
-        <a href="/" style={{ textAlign: 'left' }} className="btn btn-link">
-          Settings
-        </a>
+    <aside className="nav nav-pills p-5 bg-light col-2" style={{ height: 'auto' }}>
+      <div className="d-flex flex-column" style={{ position: 'sticky', top: 30, left: 0, height: '85vh' }}>
+        {isAuth ? <Nav /> : <Login />}
       </div>
+
     </aside>
   );
 };

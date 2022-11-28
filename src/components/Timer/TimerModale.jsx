@@ -1,33 +1,49 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { BsPlay, BsStop } from 'react-icons/bs'
 
 const ONE_SECOND = 1000
 
-  const formatTime = (time) => {
-    const hours = String(time.getHours()).padStart(2, '0'); // 10 => 10
-    const minutes = String(time.getMinutes()).padStart(2, '0');
-    const seconds = String(time.getSeconds()).padStart(2, '0');
+const formatTime = (time) => {
+  const hours = String(time.getHours()).padStart(2, '0'); // 10 => 10
+  const minutes = String(time.getMinutes()).padStart(2, '0');
+  const seconds = String(time.getSeconds()).padStart(2, '0');
 
-    return `${hours}:${minutes}:${seconds}`;
-  }
+  return `${hours}:${minutes}:${seconds}`;
+}
 
 export const TimerModal = () => {
   const [time, setTime] = useState(new Date())
+  const idRef = useRef(null)
 
   useEffect(() => {
-    const id = setInterval(() => {
-      setTime(new Date())
-      console.log('setInterval');
-    }, ONE_SECOND)
-
-    return () => {
-        console.log('clearInterval');
-        clearInterval(id) // undefined
-    }
+    return handleStopTimer
   }, [])
+
+  const handleStartTimer = () => {
+    if (!idRef.current) {
+      idRef.current = setInterval(() => {
+        setTime(new Date())
+        console.log(idRef.current);
+      }, ONE_SECOND)
+    }
+  }
+
+  const handleStopTimer = () => {
+    if (idRef.current) {
+      clearInterval(idRef.current)
+      idRef.current = null
+    }
+
+  }
 
   return (
     <div className="d-flex flex-column justify-content-center align-items-center p-5 text-bg-dark rounded-3 mb-5">
       <h2 className="h1 m-5">{formatTime(time)}</h2>
+      <div className='d-flex gap-4'>
+        <button type='button' className='btn btn-primary'><BsPlay className='fs-2' onClick={handleStartTimer} /></button>
+        <button type='button' className='btn btn-danger'><BsStop className='fs-2' onClick={handleStopTimer} /></button>
+      </div>
+
     </div>
   );
 }

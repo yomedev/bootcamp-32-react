@@ -1,17 +1,23 @@
-import { Timer } from './components/Timer';
-import { Users } from './components/Users';
+import { useEffect } from 'react';
 import { Header, Layout } from './components/Layout';
-import {Rerender} from './components/Rerender'
-import { Posts } from './components/Posts';
-import {Counter} from './components/Counter'
+import { Memo } from './components/Memo/Memo';
+import { Posts } from './components/Posts'
+import { Rerender } from './components/Rerender/Rerender';
+import { Users } from './components/Users/Users';
+import { AuthContext, AuthProvider } from './context/auth.context'
 
 export const App = () => {
+
   return (
-    <Layout>
-      <Header title="Hello world!" />
-      <Timer />
-      <Counter />
-      
-    </Layout>
+    <AuthProvider>
+      <Layout>
+        <Header title="Hello world!" />
+        {/* <Memo /> */}
+        {/* <Posts /> */}
+        {/* <Users /> */}
+        {/* <Rerender /> */}
+        <Posts />
+      </Layout>
+    </AuthProvider>
   );
 };
