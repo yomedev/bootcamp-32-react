@@ -1,13 +1,13 @@
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { useContext } from 'react';
-import { AuthContext } from '../../context/auth.context';
+import {Link} from 'react-router-dom'
+import { useAuth } from '../../../context/auth.context';
 
-import { cutString } from '../../helpers/cut-string';
-
+import {cutString} from '../../../helpers/cut-string'
 
 
 export const PostsItem = ({ post }) => {
-  const { isAuth } = useContext(AuthContext)
+  const { isAuth } = useAuth()
   return (
 
     <div className="col-12 col-xl-6 col-xxl-4 mb-4">
@@ -35,9 +35,9 @@ export const PostsItem = ({ post }) => {
               Delete post
             </button>
 
-            <a href={`/posts/${post.id}`} className="btn btn-primary ms-3">
+            <Link to={`/posts/${post.id}`} className="btn btn-primary ms-3">
               Read post
-            </a>
+            </Link>
           </div>}
         </div>
       </div>
