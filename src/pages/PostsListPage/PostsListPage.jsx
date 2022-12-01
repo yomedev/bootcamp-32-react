@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
-
+import { useSearchParams } from 'react-router-dom'
 import { Button } from '../../components/Button';
 import { PostsError, PostsItem, PostsLoader, PostsNotFound, PostsSearch } from '../../components/Posts';
 import { Status } from '../../constants/fetch-status';
 import { getPostsService } from '../../services/posts.service';
 
 export const PostsListPage = () => {
+  const [searchParams, setSearchParams] = useSearchParams()
+  const page = searchParams.get('page') ?? 1;
+  const search = searchParams.get('search') ?? '';
   const [posts, setPosts] = useState(null);
-  const [page, setPage] = useState(1)
 
   const [status, setStatus] = useState(Status.Idle);
-  const [search, setSearch] = useState('');
 
   useEffect(() => {
     setStatus(Status.Loading);
@@ -32,7 +33,7 @@ export const PostsListPage = () => {
 
   return (
     <>
-      <PostsSearch defaultValue={search} onSubmit={setSearch} />
+      <PostsSearch />
 
       <div className="container-fluid g-0 pb-5 mb-5">
         <div className="row">
@@ -48,7 +49,7 @@ export const PostsListPage = () => {
             <Button
               key={index}
               disabled={index + 1 === posts.page}
-              onClick={() => setPage(index + 1)}
+              onClick={() => setSearchParams({ page: index + 1, search })}
             >
               {index + 1}
             </Button>

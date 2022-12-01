@@ -4,8 +4,9 @@ import { Outlet } from 'react-router-dom'
 import { AuthProvider } from '../../context/auth.context';
 
 import { Sidebar } from './Sidebar/Sidebar';
+import { ConfettiContainer } from '../Confetti';
 
-export const Layout = ({ children }) => {
+export const Layout = () => {
   return (
     <AuthProvider>
       <div className="d-flex h-100">
@@ -16,6 +17,7 @@ export const Layout = ({ children }) => {
         </main>
       </div>
       <ToastContainer />
+      <ConfettiContainer />
     </AuthProvider>
 
   );

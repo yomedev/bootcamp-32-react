@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { Header, Layout } from './components/Layout';
 import { Memo } from './components/Memo/Memo';
 import { Posts } from './components/Posts'
@@ -32,22 +32,17 @@ export const App = () => {
 
           <Route path='/new-post' element={<NewPostPage />} />
           <Route path='/exercises' element={<ExercisesPage />} >
-            <Route index element={<TimerPage />} />
+            <Route index element={<Navigate to='timer' />} />
             <Route path='timer' element={<TimerPage />} />
             <Route path='counter' element={<CounterPage />} />
             <Route path='re-render' element={<RerenderPage />} />
             <Route path='*' element={<div>No such exercise</div>} />
           </Route>
+          <Route path='*' element={<Navigate to='/' />} />
         </Route>
 
-        <Route path='*' element={<NotFoundPage />} />
+        
       </Routes>
     </BrowserRouter>
   );
 };
-
-
-{/* <Layout>
-          <Header title="Hello world!" />
-          <HomePage />
-        </Layout> */}

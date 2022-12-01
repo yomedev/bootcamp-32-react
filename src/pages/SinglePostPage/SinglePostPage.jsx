@@ -1,17 +1,29 @@
 import { useEffect, useState } from 'react';
 
-import { useParams, Link, Outlet } from 'react-router-dom';
+import { useParams, Link, Outlet, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { Button } from '../../components/Button';
+import { confetti } from '../../components/Confetti';
 
 import { Loader } from '../../components/Loader';
 import { getSinglePostService } from '../../services/posts.service';
 
 export const SinglePostPage = () => {
   const { postId } = useParams()
-  console.log(postId);
+
+  const location = useLocation()
+  console.log(location);
+
+  const isPostCreate = location.state?.isPostCreated || false
 
   const [post, setPost] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (isPostCreate) {
+      confetti.run()
+    }
+  }, [isPostCreate])
 
   useEffect(() => {
     setIsLoading(true);
@@ -31,6 +43,7 @@ export const SinglePostPage = () => {
   return (
     post && (
       <>
+        <Link to={location.state?.from ?? '/posts'} className='btn btn-primary mb-5'>Back</Link>
         <img
           src={post.image}
           alt={post.title}
@@ -41,7 +54,7 @@ export const SinglePostPage = () => {
 
         <div dangerouslySetInnerHTML={{ __html: post.content.replace(/\n/g, '<br/>') }} />
 
-        <Link to={`/posts/${postId}/comments`} className="btn btn-primary my-4">
+        <Link to={`/posts/${postId}/comments`} state={location.state?.from ? location.state : null} className="btn btn-primary my-4">
           Vew post comments
         </Link>
 

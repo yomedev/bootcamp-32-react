@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import { confetti } from "../../components/Confetti";
+
 export const HomePage = () => {
   return (
     <>
