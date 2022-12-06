@@ -1,0 +1,3 @@
+export const TOGGLE_NEW_USER_MODAL = 'TOGGLE_NEW_USER_MODAL'
+export const DELETE_USER = 'DELETE_USER'
+export const CREATE_USER = 'CREATE_USER'

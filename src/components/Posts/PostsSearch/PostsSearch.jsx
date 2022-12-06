@@ -10,7 +10,6 @@ export const PostsSearch = () => {
   //   return acc
   // }, {}) 
   const queryParams = useMemo(() => Object.fromEntries([...searchParams]), [searchParams])
-  console.log(queryParams);
   const search = searchParams.get('search')
   const [value, setValue] = useState(search || '');
   const handleChange = event => setValue(event.target.value);

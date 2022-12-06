@@ -10,7 +10,6 @@ export const PostsItem = ({ post }) => {
   const { isAuth } = useAuth()
 
   const location = useLocation()
-  console.log(location);
 
   return (
 

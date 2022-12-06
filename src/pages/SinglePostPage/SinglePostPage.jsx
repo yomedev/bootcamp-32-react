@@ -12,7 +12,6 @@ export const SinglePostPage = () => {
   const { postId } = useParams()
 
   const location = useLocation()
-  console.log(location);
 
   const isPostCreate = location.state?.isPostCreated || false
 

@@ -8,7 +8,7 @@ export class UsersList extends Component {
   
 
   render() {
-    const { users, onUserDelete } = this.props
+    const { users } = this.props
 
     if (!users.length) {
       return <NotFound />
@@ -18,7 +18,7 @@ export class UsersList extends Component {
       <div className="mb-5">
 
         {users.map(user => (
-          <UsersItem key={user.id} user={user} onUserDelete={onUserDelete} />
+          <UsersItem key={user.id} user={user}  />
         ))}
       </div>
     );

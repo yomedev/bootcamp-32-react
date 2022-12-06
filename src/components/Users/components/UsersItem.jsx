@@ -1,15 +1,17 @@
 import { PropTypes } from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { deleteUserAction } from '../../../redux/users/action.users';
 
-const Button = ({ id, onDelete }) => {
-  return (
-    <button type="button" className="card-link btn-link" onClick={() => onDelete(id)}>
-      Delete
-    </button>
-  )
-}
 
-export const UsersItem = ({ user, onUserDelete }) => {
+
+export const UsersItem = ({ user }) => {
   const { id, name, email, bio, skils, isOpenToWork } = user;
+
+  const dispatch = useDispatch()
+
+  const handleDeleteUser = () => {
+    dispatch(deleteUserAction(id))
+  }
 
   return (
     <div className="card my-3">
@@ -31,7 +33,7 @@ export const UsersItem = ({ user, onUserDelete }) => {
         </div>
 
         <div className="d-flex">
-          <Button id={id} onDelete={onUserDelete} />
+          <button type='button' className='btn btn-danger' onClick={handleDeleteUser}>Delete</button>
         </div>
       </div>
     </div>
