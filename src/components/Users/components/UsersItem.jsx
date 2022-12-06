@@ -1,6 +1,6 @@
 import { PropTypes } from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { deleteUserAction } from '../../../redux/users/action.users';
+import { deleteUserAction } from '../../../redux/users/slice.users';
 
 
 

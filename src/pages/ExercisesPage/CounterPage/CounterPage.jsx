@@ -1,11 +1,9 @@
-import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useCounter } from './hook';
+import { minusAction, plusAction } from '../../../redux/counter/action.counter';
+
 
 export const CounterPage = () => {
   const counter = useSelector(state => state.counter)
-  const isLoading = useSelector(state => state.isLoading)
-  console.log(counter);
   const dispatch = useDispatch()
 
   return (
@@ -15,10 +13,10 @@ export const CounterPage = () => {
       </p>
 
       <div className="d-flex align-items-center justify-content-center w-100">
-        <button type="button" name="android" className="btn p-3 btn-outline-light w-25 mx-2" onClick={() => dispatch({ type: 'minus', payload: 10 })}>
+        <button type="button" name="android" className="btn p-3 btn-outline-light w-25 mx-2" onClick={() => dispatch(minusAction(10))}>
           Minus
         </button>
-        <button type="button" name="iphone" className="btn p-3 btn-outline-light w-25 mx-2" onClick={() => dispatch({ type: 'plus', payload: 10 })}>
+        <button type="button" name="iphone" className="btn p-3 btn-outline-light w-25 mx-2" onClick={() => dispatch(plusAction(10))}>
           Plus
         </button>
       </div>

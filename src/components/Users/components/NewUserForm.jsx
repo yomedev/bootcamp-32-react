@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { createUserAction } from '../../../redux/users/slice.users';
 
 const skilsList = [
   { value: 'react', label: 'React' },
@@ -15,7 +16,7 @@ export class NewUserForm extends Component {
     isOpenToWork: false,
   };
 
-  
+
 
   handleChange = event => {
     const { name, value } = event.target;

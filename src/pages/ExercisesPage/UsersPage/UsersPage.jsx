@@ -11,7 +11,8 @@ import { SearchInput } from '../../../components/Users/components/SearchInput';
 import { SkillsFilters } from '../../../components/Users/components/SkillsFilters';
 import { UsersList } from '../../../components/Users/components/UsersList';
 import { useDispatch, useSelector } from 'react-redux';
-import { createUserAction, deleteUserAction, toggleNewUserModalAction } from '../../../redux/users/action.users';
+import { createUserAction, toggleModalAction } from '../../../redux/users/slice.users';
+
 
 const ALL_SKILLS_VALUE = 'all';
 
@@ -24,12 +25,12 @@ export const UsersPage = () => {
   const dispatch = useDispatch()
 
   const toggleModal = () => {
-    dispatch(toggleNewUserModalAction())
+    dispatch(toggleModalAction())
   };
 
   const handleCreateNewUser = user => {
     dispatch(createUserAction(user))
-    dispatch(toggleNewUserModalAction())
+    dispatch(toggleModalAction())
   };
 
   useEffect(() => {
@@ -61,7 +62,7 @@ export const UsersPage = () => {
   const filteredUsers = useMemo(() => {
     return users.filter(user => {
       if (isAvailable && user.isOpenToWork !== isAvailable) return false
-      if (!user.skils.includes(skills)) return false
+      if (skills !== 'all' && !user.skils.includes(skills)) return false
       if (!user.name.toLowerCase().includes(search.toLowerCase())) return false
       return true
     })
