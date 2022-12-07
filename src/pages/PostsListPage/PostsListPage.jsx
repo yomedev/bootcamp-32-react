@@ -1,27 +1,24 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom'
 import { Button } from '../../components/Button';
 import { PostsError, PostsItem, PostsLoader, PostsNotFound, PostsSearch } from '../../components/Posts';
 import { Status } from '../../constants/fetch-status';
+import { getPostsThunk } from '../../redux/posts/thunk.posts';
 import { getPostsService } from '../../services/posts.service';
 
 export const PostsListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const page = searchParams.get('page') ?? 1;
   const search = searchParams.get('search') ?? '';
-  const [posts, setPosts] = useState(null);
 
-  const [status, setStatus] = useState(Status.Idle);
+  const dispatch = useDispatch()
+
+  const {posts, status} = useSelector(state => state.posts) 
 
   useEffect(() => {
-    setStatus(Status.Loading);
-    getPostsService({ search, page })
-      .then(data => {
-        setStatus(Status.Success);
-        setPosts(data);
-      })
-      .catch(() => setStatus(Status.Error));
-  }, [search, page]);
+    dispatch(getPostsThunk({search, page}))
+  }, [search, page, dispatch]);
 
   if (status === Status.Loading || status === Status.Idle) {
     return <PostsLoader />;
