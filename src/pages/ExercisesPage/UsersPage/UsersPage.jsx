@@ -61,7 +61,7 @@ export const UsersPage = () => {
   const filteredUsers = useMemo(() => {
     return users.filter(user => {
       if (isAvailable && user.isOpenToWork !== isAvailable) return false
-      if (!user.skils.includes(skills)) return false
+      if (skills !== 'all' && !user.skils.includes(skills)) return false
       if (!user.name.toLowerCase().includes(search.toLowerCase())) return false
       return true
     })
@@ -87,7 +87,7 @@ export const UsersPage = () => {
         </Modal>
       )}
 
-      <UsersList users={filteredUsers}  />
+      <UsersList users={filteredUsers} />
     </>
   );
 }

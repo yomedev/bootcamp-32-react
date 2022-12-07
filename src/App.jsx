@@ -9,6 +9,7 @@ import TimerPage from './pages/ExercisesPage/TimerPage'
 import RerenderPage from './pages/ExercisesPage/RerenderPage'
 import {Users} from './components/Users'
 import UsersPage from './pages/ExercisesPage/UsersPage';
+import MiddlewarePage from './pages/ExercisesPage/MiddlewarePage';
 
 const HomePage = lazy(() => import('./pages/HomePage'))
 const PostsListPage = lazy(() => import('./pages/PostsListPage'))
@@ -35,6 +36,7 @@ export const App = () => {
             <Route path='counter' element={<CounterPage />} />
             <Route path='re-render' element={<RerenderPage />} />
             <Route path='users' element={<UsersPage />} />
+            <Route path='middleware' element={<MiddlewarePage />} />
             <Route path='*' element={<div>No such exercise</div>} />
           </Route>
           <Route path='*' element={<Navigate to='/' />} />
