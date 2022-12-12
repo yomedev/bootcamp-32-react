@@ -9,6 +9,7 @@ import TimerPage from './pages/ExercisesPage/TimerPage'
 import RerenderPage from './pages/ExercisesPage/RerenderPage'
 import {Users} from './components/Users'
 import UsersPage from './pages/ExercisesPage/UsersPage';
+import RtkPostsPage from './pages/RtkPostsPage';
 
 const HomePage = lazy(() => import('./pages/HomePage'))
 const PostsListPage = lazy(() => import('./pages/PostsListPage'))
@@ -24,6 +25,7 @@ export const App = () => {
         <Route path='/' element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path='/posts' element={<PostsListPage />} />
+          <Route path='/rtk-posts' element={<RtkPostsPage />} />
           <Route path='/posts/:postId' element={<SinglePostPage />} >
             <Route path='comments' element={<CommentsPage />} />
           </Route>

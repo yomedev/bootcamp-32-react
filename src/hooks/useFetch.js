@@ -1,13 +1,15 @@
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 
-export const useFetch = (callback) => {
+export const useFetch = (requst, dependacy = []) => {
+  const [data, setData] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
 
   const fetchData = useCallback(async params => {
     try {
       setIsLoading(true)
-      await callback(params)
+      const { data } = await requst(params)
+      setData(data)
     } catch {
       setIsError(true)
     } finally {
@@ -15,5 +17,19 @@ export const useFetch = (callback) => {
     }
   }, [])
 
-  return [fetchData, isLoading, isError]
+  useEffect(() => {
+    fetchData()
+  }, [fetchData].concat(dependacy))
+
+  return [data, isLoading, isError]
+}
+
+
+const MyComponent = () => {
+  const [data, isError, isLoading] = useFetch(() => axios.get('...'), ['...'])
+  useQuery()
+
+  
+
+  return <></>
 }

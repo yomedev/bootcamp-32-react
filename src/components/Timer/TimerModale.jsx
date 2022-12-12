@@ -10,12 +10,16 @@ const formatTime = (time) => {
 
   return `${hours}:${minutes}:${seconds}`;
 }
-
+// mount -> updating
 export const TimerModal = () => {
   const [time, setTime] = useState(new Date())
   const idRef = useRef(null)
+  // { current: null }
+  const divRef = useRef(null)
+  
 
   useEffect(() => {
+    console.log(divRef.current);
     return handleStopTimer
   }, [])
 
@@ -37,7 +41,7 @@ export const TimerModal = () => {
   }
 
   return (
-    <div className="d-flex flex-column justify-content-center align-items-center p-5 text-bg-dark rounded-3 mb-5">
+    <div ref={divRef} className="d-flex flex-column justify-content-center align-items-center p-5 text-bg-dark rounded-3 mb-5">
       <h2 className="h1 m-5">{formatTime(time)}</h2>
       <div className='d-flex gap-4'>
         <button type='button' className='btn btn-primary'><BsPlay className='fs-2' onClick={handleStartTimer} /></button>

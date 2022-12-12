@@ -8,7 +8,7 @@ import { cutString } from '../../../helpers/cut-string'
 import { deletePostThunk } from '../../../redux/posts/thunk.posts';
 
 
-export const PostsItem = ({ post }) => {
+export const PostsItem = ({ post, onDelete }) => {
   const { isAuth } = useAuth()
   const [searchParams, setSearchParams] = useSearchParams()
   const page = searchParams.get('page') ?? 1;
@@ -19,7 +19,8 @@ export const PostsItem = ({ post }) => {
   const dispatch = useDispatch()
 
   const handleDelete = () => {
-    dispatch(deletePostThunk({ postId: post.id, page, search }))
+    // dispatch(deletePostThunk({ postId: post.id, page, search }))
+    onDelete(post.id)
   }
 
   return (

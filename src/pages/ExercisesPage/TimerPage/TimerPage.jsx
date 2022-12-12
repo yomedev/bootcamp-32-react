@@ -22,6 +22,7 @@ const formatTime = time => {
 
 export const TimerPage = () => {
   const ref = useRef(null);
+  const pRef = useRef(null)
   const [time, setTime] = useState(0);
 
   const handleStartTimer = () => {
@@ -39,13 +40,14 @@ export const TimerPage = () => {
     }
   };
   useEffect(() => {
+    console.log(pRef.current);
     return () => {
       handleStopTimer();
     };
   }, []);
   return (
     <>
-      <p className="h1 mb-4 text-center">{formatTime(time)}</p>
+      <p ref={pRef} className="h1 mb-4 text-center">{formatTime(time)}</p>
       <div className="d-flex justify-content-center">
         <Button className="btn-primary btn-lg mx-2" onClick={handleStartTimer}>
           <IoPlayOutline />

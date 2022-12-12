@@ -1,7 +1,23 @@
+import { useRef } from "react";
+import { forwardRef } from "react";
 import { useEffect } from "react";
 import { confetti } from "../../components/Confetti";
 
+const Header = forwardRef((props, ref) => {
+  return <h1 ref={ref} className="mb-5">Hello, world!</h1>
+})
+
 export const HomePage = () => {
+  const headerRef = useRef(null)
+
+  const handleScroll = () => {
+    headerRef.current.scrollIntoView({ behavior: 'smooth'})
+  }
+
+  useEffect(() => {
+    console.log(headerRef.current);
+  }, [])
+
   return (
     <>
       <div className="p-5 mb-4 bg-white border rounded-3">
@@ -32,6 +48,19 @@ export const HomePage = () => {
             </div>
           </div>
 
+          <div className="col-md-6">
+            <div className="h-100 p-5 bg-white border rounded-3">
+              <h2>Add borders</h2>
+              <p>
+                Or, keep it light and add a border for some added definition to the boundaries of your content. Be sure
+                to look under the hood at the source HTML here as we&apos;ve adjusted the alignment and sizing of both
+                column&apos;s content for equal-height.
+              </p>
+              <button className="btn btn-outline-secondary" type="button">
+                Example button
+              </button>
+            </div>
+          </div>
           <div className="col-md-6">
             <div className="h-100 p-5 bg-white border rounded-3">
               <h2>Add borders</h2>

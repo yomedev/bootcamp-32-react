@@ -2,13 +2,10 @@ import axios from 'axios'
 
 const postsApi = axios.create({
   baseURL: 'http://70.34.201.18:8080',
-  params: {
-    limit: 6
-  }
 })
 
 export const getPostsService = async (params) => {
-  const { data } = await postsApi.get(`/posts`, { params }) // params => {search: 'cat', page: 2}
+  const { data } = await postsApi.get(`/posts`, { ...params, limit: 6 }) 
   return data
 }
 
