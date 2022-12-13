@@ -1,26 +1,28 @@
-import { useState, useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom'
+import { useState } from 'react';
+
+import { useSearchParams } from 'react-router-dom';
 
 import { Button } from '../../Button';
 
 export const PostsSearch = () => {
-  const [searchParams, setSearchParams] = useSearchParams()
-  // const queryParams = [...searchParams].reduce((acc, [key, value]) => {
-  //   acc[key] = value
-  //   return acc
-  // }, {}) 
-  const queryParams = useMemo(() => Object.fromEntries([...searchParams]), [searchParams])
-  const search = searchParams.get('search')
-  const [value, setValue] = useState(search || '');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const search = searchParams.get('search') ?? '';
+  const page = searchParams.get('page') ?? 1;
+
+  const [value, setValue] = useState(search);
   const handleChange = event => setValue(event.target.value);
 
   const handleSubmit = event => {
     event.preventDefault();
-    setSearchParams({ ...queryParams, search: value, page: 1 })
+    setSearchParams(value.trim() ? { search: value, page: 1 } : { page: 1 });
+  };
+
+  const handleReset = () => {
+    setSearchParams({ page });
   };
 
   return (
-    <form className="input-group mb-3" onSubmit={handleSubmit}>
+    <form className="input-group input-group-lg mb-5" onSubmit={handleSubmit}>
       <input
         type="text"
         className="form-control"
@@ -28,6 +30,9 @@ export const PostsSearch = () => {
         value={value}
         onChange={handleChange}
       />
+      <Button onClick={handleReset} className="btn-outline-secondary">
+        Reset
+      </Button>
       <Button type="submit">Search</Button>
     </form>
   );

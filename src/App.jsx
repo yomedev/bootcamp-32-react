@@ -1,48 +1,49 @@
-import { useEffect, lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { Header, Layout } from './components/Layout';
+import { lazy } from 'react';
 
-import NewPostPage from './pages/NewPostPage';
-import SinglePostPage from './pages/SinglePostPage'
-import CommentsPage from './pages/SinglePostPage/CommentsPage';
-import TimerPage from './pages/ExercisesPage/TimerPage'
-import RerenderPage from './pages/ExercisesPage/RerenderPage'
-import {Users} from './components/Users'
-import UsersPage from './pages/ExercisesPage/UsersPage';
-import RtkPostsPage from './pages/RtkPostsPage';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-const HomePage = lazy(() => import('./pages/HomePage'))
-const PostsListPage = lazy(() => import('./pages/PostsListPage'))
-const ExercisesPage = lazy(() => import('./pages/ExercisesPage'))
-const CounterPage = lazy(() => import('./pages/ExercisesPage/CounterPage'))
+import { Layout } from './components/Layout';
+
+const HomePage = lazy(() => import('./pages/HomePage'));
+const RtkPostsPage = lazy(() => import('./pages/RtkPostsPage'));
+const NewPostPage = lazy(() => import('./pages/NewPostPage'));
+const PostsListPage = lazy(() => import('./pages/PostsListPage'));
+const SinglePostPage = lazy(() => import('./pages/SinglePostPage'));
+const CommentsPage = lazy(() => import('./pages/SinglePostPage/CommentsPage'));
+
+const ExercisesPage = lazy(() => import('./pages/ExercisesPage'));
+const CounterPage = lazy(() => import('./pages/ExercisesPage/CounterPage'));
+const UsersPage = lazy(() => import('./pages/ExercisesPage/UsersPage'));
+
+const LoginPage = lazy(() => import('./pages/LoginPage'));
+const JoinPage = lazy(() => import('./pages/JoinPage'));
+
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
 export const App = () => {
 
   return (
-    <BrowserRouter basename='/my-homework'>
+    <BrowserRouter basename="/bootcamp-24-react/">
       <Routes>
-
-        <Route path='/' element={<Layout />}>
+        <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route path='/posts' element={<PostsListPage />} />
-          <Route path='/rtk-posts' element={<RtkPostsPage />} />
-          <Route path='/posts/:postId' element={<SinglePostPage />} >
-            <Route path='comments' element={<CommentsPage />} />
+          <Route path="/posts" element={<PostsListPage />} />
+          <Route path="/rtk-posts" element={<RtkPostsPage />} />
+          <Route path="/posts/:postId" element={<SinglePostPage />}>
+            <Route path="comments" element={<CommentsPage />} />
+          </Route>
+          <Route path="/new-post" element={<NewPostPage />} />
+          <Route path="/exercises" element={<ExercisesPage />}>
+            <Route index element={<Navigate to="users" />} />
+            <Route path="counter" element={<CounterPage />} />
+            <Route path="users" element={<UsersPage />} />
           </Route>
 
-          <Route path='/new-post' element={<NewPostPage />} />
-          <Route path='/exercises' element={<ExercisesPage />} >
-            <Route index element={<Navigate to='timer' />} />
-            <Route path='timer' element={<TimerPage />} />
-            <Route path='counter' element={<CounterPage />} />
-            <Route path='re-render' element={<RerenderPage />} />
-            <Route path='users' element={<UsersPage />} />
-            <Route path='*' element={<div>No such exercise</div>} />
-          </Route>
-          <Route path='*' element={<Navigate to='/' />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/join" element={<JoinPage />} />
+
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
-
-
       </Routes>
     </BrowserRouter>
   );

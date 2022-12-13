@@ -1,22 +1,6 @@
-import { useRef } from "react";
-import { forwardRef } from "react";
-import { useEffect } from "react";
-import { confetti } from "../../components/Confetti";
 
-const Header = forwardRef((props, ref) => {
-  return <h1 ref={ref} className="mb-5">Hello, world!</h1>
-})
 
 export const HomePage = () => {
-  const headerRef = useRef(null)
-
-  const handleScroll = () => {
-    headerRef.current.scrollIntoView({ behavior: 'smooth'})
-  }
-
-  useEffect(() => {
-    console.log(headerRef.current);
-  }, [])
 
   return (
     <>

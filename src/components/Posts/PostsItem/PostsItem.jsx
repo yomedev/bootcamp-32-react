@@ -1,30 +1,18 @@
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
-import { useContext } from 'react';
-import { useDispatch } from 'react-redux';
-import { Link, useLocation, useSearchParams } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../../../context/auth.context';
 
 import { cutString } from '../../../helpers/cut-string'
-import { deletePostThunk } from '../../../redux/posts/thunk.posts';
-
 
 export const PostsItem = ({ post, onDelete }) => {
   const { isAuth } = useAuth()
-  const [searchParams, setSearchParams] = useSearchParams()
-  const page = searchParams.get('page') ?? 1;
-  const search = searchParams.get('search') ?? '';
-
   const location = useLocation()
 
-  const dispatch = useDispatch()
-
   const handleDelete = () => {
-    // dispatch(deletePostThunk({ postId: post.id, page, search }))
     onDelete(post.id)
   }
 
   return (
-
     <div className="col-12 col-xl-6 col-xxl-4 mb-4">
       <div className="card">
         <img

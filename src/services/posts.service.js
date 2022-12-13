@@ -1,24 +1,21 @@
 import axios from 'axios'
-
-const postsApi = axios.create({
-  baseURL: 'http://70.34.201.18:8080',
-})
+import { privateApi, publicApi } from '../http/http';
 
 export const getPostsService = async (params) => {
-  const { data } = await postsApi.get(`/posts`, { ...params, limit: 6 }) 
+  const { data } = await publicApi.get(`/posts`, { ...params, limit: 6 }) 
   return data
 }
 
 export const createNewPostService = async body => {
-  const { data } = await postsApi.post('/posts', body);
+  const { data } = await privateApi.post('/posts', body);
   return data;
 };
 
 export const getSinglePostService = async (id, params) => {
-  const { data } = await postsApi.get(`/posts/${id}`, { params });
+  const { data } = await publicApi.get(`/posts/${id}`, { params });
   return data;
 };
 
 export const deletePostService = id => {
-  return postsApi.delete(`/posts/${id}`);
+  return privateApi.delete(`/posts/${id}`);
 };
