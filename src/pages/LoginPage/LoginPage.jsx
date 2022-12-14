@@ -15,7 +15,6 @@ export const LoginPage = () => {
   });
 
   const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   const handleChange = event => {
     const { value, name } = event.target;
@@ -26,7 +25,6 @@ export const LoginPage = () => {
     event.preventDefault();
     try {
       await dispatch(loginThunk(values)).unwrap()
-      navigate('/posts')
     } catch (error) {
       toast.error('Error')
     }

@@ -3,6 +3,8 @@ import { lazy } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import { Layout } from './components/Layout';
+import { PrivateRoute } from './components/PrivateRoute/PrivateRoute';
+import { PublicRoute } from './components/PublicRoute/PublicRoute';
 
 const HomePage = lazy(() => import('./pages/HomePage'));
 const RtkPostsPage = lazy(() => import('./pages/RtkPostsPage'));
@@ -28,19 +30,22 @@ export const App = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="/posts" element={<PostsListPage />} />
-          <Route path="/rtk-posts" element={<RtkPostsPage />} />
           <Route path="/posts/:postId" element={<SinglePostPage />}>
             <Route path="comments" element={<CommentsPage />} />
           </Route>
-          <Route path="/new-post" element={<NewPostPage />} />
-          <Route path="/exercises" element={<ExercisesPage />}>
-            <Route index element={<Navigate to="users" />} />
-            <Route path="counter" element={<CounterPage />} />
-            <Route path="users" element={<UsersPage />} />
+          <Route path='/' element={<PrivateRoute />}>
+            <Route path="/new-post" element={<NewPostPage />} />
+            <Route path="/exercises" element={<ExercisesPage />}>
+              <Route index element={<Navigate to="users" />} />
+              <Route path="counter" element={<CounterPage />} />
+              <Route path="users" element={<UsersPage />} />
+            </Route>
           </Route>
 
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/join" element={<JoinPage />} />
+          <Route path='/' element={<PublicRoute />}>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/join" element={<JoinPage />} />
+          </Route>
 
           <Route path="*" element={<NotFoundPage />} />
         </Route>

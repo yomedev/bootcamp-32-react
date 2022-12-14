@@ -1,12 +1,14 @@
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom'
-import { useAuth } from '../../../context/auth.context';
 
 import { cutString } from '../../../helpers/cut-string'
+import { selectProfile } from '../../../redux/profile/select.profile';
 
 export const PostsItem = ({ post, onDelete }) => {
-  const { isAuth } = useAuth()
   const location = useLocation()
+
+  const { data } = useSelector(selectProfile)
 
   const handleDelete = () => {
     onDelete(post.id)
@@ -33,15 +35,16 @@ export const PostsItem = ({ post, onDelete }) => {
             <li className="list-group-item">Created: {formatDistanceToNow(new Date(post.created_at))}</li>
           </ul>
 
-          {isAuth && <div className="d-flex">
-            <button type="button" className="btn btn-danger" onClick={handleDelete}>
+          <div className="d-flex">
+
+            {post.user_id === data?.id && <button type="button" className="btn btn-danger" onClick={handleDelete}>
               Delete post
-            </button>
+            </button>}
 
             <Link to={`/posts/${post.id}`} state={{ from: location }} className="btn btn-primary ms-3">
               Read post
             </Link>
-          </div>}
+          </div>
         </div>
       </div>
     </div>

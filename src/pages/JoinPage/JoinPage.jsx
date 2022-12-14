@@ -30,12 +30,11 @@ export const JoinPage = () => {
     event.preventDefault();
 
     createUserService(values)
-    .then(() => {
-      toast.success('Success')
-      dispatch(loginThunk(omit(values, 'first_name', 'last_name'))).unwrap()
-    })
-    .then(() => navigate('/posts'))
-    .catch(() => toast.error('Error'))
+      .then(() => {
+        toast.success('Success')
+        dispatch(loginThunk(omit(values, 'first_name', 'last_name'))).unwrap()
+      })
+      .catch(() => toast.error('Error'))
 
     setIsLoading(true);
   };

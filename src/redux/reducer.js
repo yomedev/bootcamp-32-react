@@ -9,19 +9,18 @@ import { createReducer } from "@reduxjs/toolkit";
 import { authReducer } from "./auth/slice.auth";
 import { profileReducer } from "./profile/slice.profile";
 
-
 const usersPersistConfig = {
   key: 'users',
   storage,
   whitelist: ['data'],
 }
+
 const authPersistConfig = {
   key: 'auth',
   storage,
 }
 
 const usersPersistedReducer = persistReducer(usersPersistConfig, usersReducer)
-
 
 const authPersistedReducer = persistReducer(authPersistConfig, authReducer)
 
