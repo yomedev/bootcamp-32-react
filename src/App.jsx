@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { PrivateRoute } from './components/PrivateRoute/PrivateRoute';
 import { PublicRoute } from './components/PublicRoute/PublicRoute';
+import { CancelRequestPage } from './pages/ExercisesPage/CancelRequestPage/CancelRequestPage';
 
 const HomePage = lazy(() => import('./pages/HomePage'));
 const RtkPostsPage = lazy(() => import('./pages/RtkPostsPage'));
@@ -39,9 +40,9 @@ export const App = () => {
               <Route index element={<Navigate to="users" />} />
               <Route path="counter" element={<CounterPage />} />
               <Route path="users" element={<UsersPage />} />
+              <Route path="cancel-request" element={<CancelRequestPage />} />
             </Route>
           </Route>
-
           <Route path='/' element={<PublicRoute />}>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/join" element={<JoinPage />} />
